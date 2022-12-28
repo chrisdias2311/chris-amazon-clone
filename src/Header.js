@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { useNavigate } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
+import { auth } from "./firebase";
 
 function Header() {
     const[{ basket, user}, dispatch] = useStateValue();
@@ -19,8 +20,18 @@ function Header() {
         navigate("/checkout")
     }
 
-    const navigateToSignIn = ()=> {
-        navigate("/login")
+    // const navigateToSignIn = ()=> {
+    //     navigate("/login")
+    // }
+
+    const handleAuthentication = () => {
+        if(user){
+            auth.signOut();
+            alert('Logged out successfully')
+        }
+        if(!user){
+            navigate('/login')
+        }
     }
 
     return (
@@ -37,8 +48,8 @@ function Header() {
             </div>    
 
             <div className="header__nav">
-                <div className="header__option">
-                    <span className="header_optionLineOne">Hello</span>
+                <div onClick={handleAuthentication} className="header__option">
+                    <span className="header_optionLineOne">Hello Guest</span>
                     <span className="header__optionLineTwo">{user ? 'Sign Out' : 'Sign In'}</span>
                 </div>
                 <div className="header__option">
