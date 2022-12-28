@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
+import { auth } from "./firebase";
+// import { useHistory } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    // const history = useHistory();
 
     const navigateToHome = () => {
         navigate("/")
@@ -14,11 +17,29 @@ function Login() {
     const signIn = (e) => {
         e.preventDefault();
 
+        auth  
+            .signInWithEmailAndPassword(email, password)
+            .then(auth=>{
+                alert("Logged In successfully!")
+                navigate('/')
+            })
+            .catch(error=> alert(error.message))
         // some fancy firebase login
     }
     const register = (e) => {
         e.preventDefault();
 
+        auth
+            .createUserWithEmailAndPassword(email, password)
+            .then((auth)=>{
+                //Successfully created new user with email and password 
+                if(auth){
+                    navigate('/');
+                }
+                console.log(auth);
+                alert("Account created successfully")
+            })
+            .catch(error => alert(error.message))
         //do some fancy firebase register 
     }
 
@@ -49,10 +70,11 @@ function Login() {
 
                 <p>by signing-in you agree to AMAZON FAKE CLONE conditions of Use and sale. Please see our Privacy Notice, our Cookies Noties and our Interest-Based Ads </p>
                 
-                <button className='login_registerButton'>Create Amazon account</button>
+                <button className='login_registerButton' onClick={register}>Create Amazon account</button>
             </div>
         </div>
     )
 }
 
 export default Login;
+

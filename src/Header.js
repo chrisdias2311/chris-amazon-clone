@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
 
 function Header() {
-    const[{ basket }, dispatch] = useStateValue();
+    const[{ basket, user}, dispatch] = useStateValue();
 
 
     const navigate = useNavigate();
@@ -39,7 +39,7 @@ function Header() {
             <div className="header__nav">
                 <div className="header__option">
                     <span className="header_optionLineOne">Hello</span>
-                    <span onClick={navigateToSignIn} className="header_optionLineTwo">Sign In</span>
+                    <span className="header__optionLineTwo">{user ? 'Sign Out' : 'Sign In'}</span>
                 </div>
                 <div className="header__option">
                     <span className="header_optionLineOne">Returns</span>
@@ -59,6 +59,3 @@ function Header() {
 }
 
 export default Header;
-
-
-// 1:11
