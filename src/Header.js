@@ -15,7 +15,9 @@ function Header() {
     const navigateToHome = ()=>{
         navigate("/")
     }
-
+    const navigateToorderpage = ()=>{
+        navigate("/order")
+    }
     const navigateToCheckout = ()=>{
         navigate("/checkout")
     }
@@ -37,22 +39,17 @@ function Header() {
     return (
         <div className='header'>
             <img
-              className="header_logo"
+              className="header_logo1"
               src='http://pngimg.com/uploads/amazon/amazon_PNG11.png' 
               onClick={navigateToHome}
             />
 
-            <div className="header_search">
-                <input className="header_searchInput" type="text"></input>
-                <SearchIcon className="header_searchIcon"/>
-            </div>    
-
             <div className="header__nav">
                 <div onClick={handleAuthentication} className="header__option">
-                    <span className="header_optionLineOne">Hello Guest</span>
+                    <span className="header_optionLineOne">Hello {user?.email}</span>
                     <span className="header__optionLineTwo">{user ? 'Sign Out' : 'Sign In'}</span>
                 </div>
-                <div className="header__option">
+                <div className="header__option" onClick={navigateToorderpage}>
                     <span className="header_optionLineOne">Returns</span>
                     <span className="header_optionLineTwo">& Orders</span>
                 </div>

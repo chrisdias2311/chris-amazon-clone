@@ -1,4 +1,5 @@
 export const initialState={
+    orders: [],
     basket: [],
     user: null,
 };
@@ -15,6 +16,16 @@ const reducer = (state, action)=>{
                 ...state,
                 basket: [...state.basket, action.item],
             };
+            case 'ADD_TO_ORDER':
+                return {
+                  ...state,
+                  orders: [...state.orders, action.item],
+                };
+              case 'REMOVE_FROM_ORDER':
+                return {
+                  ...state,
+                  orders: state.orders.filter(item => item.id !== action.id),
+                };
 
         case 'REMOVE_FROM_BASKET':
             // return{                            //Dp not use this method as it will delete allthe item from thebasket with that particular id, irrespective of how many items are actually present in the basket 
@@ -43,6 +54,38 @@ const reducer = (state, action)=>{
                 ...state,
                 user: action.user
             }
+            case 'REMOVE_ALL_FROM_BASKET':
+                // Clear the entire basket
+                return {
+                    ...state,
+                    basket: [],
+                };
+                case 'ADD_BASKET_TO_ORDERS':
+                    return {
+                      ...state,
+                      orders: [...state.orders, ...state.basket],
+                      basket: [], // Clear the basket after adding to orders
+                    };
+                    case 'REMOVE_SINGLE_ITEM_FROM_ORDERS':
+                        const itemIndexToRemove = state.orders.findIndex(
+                          (orderItem) => orderItem.id === action.id
+                        );
+                  
+                        if (itemIndexToRemove >= 0) {
+                          // Create a new orders array without the item to remove
+                          const newOrders = [
+                            ...state.orders.slice(0, itemIndexToRemove),
+                            ...state.orders.slice(itemIndexToRemove + 1),
+                          ];
+                  
+                          return {
+                            ...state,
+                            orders: newOrders,
+                          };
+                        } else {
+                          console.log(`Can't remove product (id: ${action.id}) as it's not in the orders!`);
+                          return state;
+                        }
                 
         default: 
             return state;    

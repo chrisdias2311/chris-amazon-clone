@@ -1,19 +1,12 @@
 import React from 'react';
 import "./Checkout.css";
-import CheckoutProduct from './CheckoutProduct';
+import OrderedProduct from './OrderedProduct';
 import { useStateValue } from './StateProvider';
-import Subtotal from './Subtotal';
 import Header from './Header'; // Import the Header component
 
-function Checkout() {
-  const[{basket, user}, dispatch] = useStateValue();
-  
-  const removeAllFromBasket = () => {
-    dispatch({
-      type: 'REMOVE_ALL_FROM_BASKET',
-    });
-  };
-  
+function Order() {
+  const[{orders, user}, dispatch] = useStateValue();
+
   return (
     <div>
       {/* Include the Header component here */}
@@ -28,16 +21,11 @@ function Checkout() {
           />
           <div>
             <div className="checkout_title_container">
-              <h2 className="checkout_title">Your shopping basket</h2>
-              {basket.length > 0 && ( // Show the button only if there are items in the basket
-                <button className="removeAllButton" onClick={removeAllFromBasket}>
-                  Remove All
-                </button>
-              )}
+              <h2 className="checkout_title">Your Orders</h2>
             </div>
             <h3>Hello {user?.email}</h3>
-            {basket.map(item => (
-              <CheckoutProduct
+            {orders.map(item => (
+              <OrderedProduct
                 id={item.id}
                 title={item.title}
                 image={item.image}
@@ -48,13 +36,9 @@ function Checkout() {
             ))}
           </div>
         </div>
-        
-        <div className='checkout_right'>
-          <Subtotal />
-        </div>
       </div>
     </div>
   )
 }
 
-export default Checkout;
+export default Order;

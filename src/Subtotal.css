@@ -9,7 +9,9 @@
   border: 1px solid #dddddd;
   border-radius: 3px;
 }
-  
+.proceed:hover {
+  background: #d4ac0d; /* Change the background color on hover */
+}
 .subtotal_gift {
   display: flex;
   align-items: center;
@@ -17,6 +19,7 @@
   
 .subtotal_gift > input {
   margin-right: 5px;
+  
 }
   
 .subtotal > button {

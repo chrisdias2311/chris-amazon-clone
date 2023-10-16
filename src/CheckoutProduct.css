@@ -7,7 +7,9 @@
 .checkoutProduct_info {
     padding-left: 20px
 }
-
+.remove:hover {
+    background: #d4ac0d; /* Change the background color on hover */
+  }
 .checkoutProduct_info > button {
     background: #f0c14b;
     border: 1px solid;

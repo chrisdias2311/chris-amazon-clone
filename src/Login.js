@@ -9,7 +9,10 @@ function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     // const history = useHistory();
-
+    
+    const navigateToregister = ()=>{
+        navigate("/register")
+    }
     const navigateToHome = () => {
         navigate("/")
     }
@@ -26,26 +29,6 @@ function Login() {
             .catch(error=> alert(error.message))
         // some fancy firebase login
     }
-    const register = (e) => {
-        e.preventDefault();
-
-        auth
-            .createUserWithEmailAndPassword(email, password)
-            .then((auth)=>{
-                //Successfully created new user with email and password 
-                if(auth){
-                    navigate('/');
-                }
-                console.log(auth);
-                alert("Account created successfully")
-            })
-            .catch(error => alert(error.message))
-        //do some fancy firebase register 
-    }
-
-
-
-
 
     return (
         <div className='login'>
@@ -70,7 +53,7 @@ function Login() {
 
                 <p>by signing-in you agree to AMAZON FAKE CLONE conditions of Use and sale. Please see our Privacy Notice, our Cookies Noties and our Interest-Based Ads </p>
                 
-                <button className='login_registerButton' onClick={register}>Create Amazon account</button>
+                <button className='login_registerButton' onClick={navigateToregister}>Create Amazon account</button>
             </div>
         </div>
     )
