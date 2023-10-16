@@ -15,6 +15,9 @@
     height: 100px;
     margin-bottom: 15px;
 }
+.add:hover {
+    background: #d4ac0d; /* Change the background color on hover */
+  }
 .product_price{
     margin-top: 5px;;
 }
